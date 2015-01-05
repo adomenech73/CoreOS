@@ -1,0 +1,41 @@
+[Unit]
+Description=Diamond is a python daemon that collects system metrics and publishes them.
+
+# Requirements
+Requires=etcd.service
+Requires=docker.service
+Requires=graphite.1.service
+Requires=mysql.1.service
+Requires=wordpress.1.service
+Requires=diamond-discovery.1.service
+
+# Dependency ordering
+After=etcd.service
+After=docker.service
+After=graphite.1.service
+After=mysql.1.service
+After=wordpress.1.service
+Before=diamond-discovery.1.service
+
+
+[Service]
+# Let processes take awhile to start up (for first run Docker containers)
+TimeoutStartSec=0
+Restart=always
+RestartSec=10s
+# Change killmode from "control-group" to "none" to let Docker remove
+# work correctly.
+KillMode=none
+## Directives with "=-" are allowed to fail without consequence
+ExecStartPre=-/usr/bin/docker kill diamond
+ExecStartPre=-/usr/bin/docker rm diamond
+ExecStartPre=/usr/bin/docker pull adomenech73/diamond
+ExecStart=/usr/bin/docker run -rm -name diamond  --link mysql:mysql --link wordpress:wordpress --link graphite:graphite -e "DB_PASSWORD=q$1N76&WAri9"  adomenech73/diamond
+ExecStop=/usr/bin/docker stop diamond
+
+[Install]
+WantedBy=local.target
+
+[X-Fleet]
+# Don't schedule on the same machine as other instances
+X-Conflicts=diamond.*.service

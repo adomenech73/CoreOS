@@ -1,0 +1,33 @@
+[Unit]
+Description=Graphite is a highly scalable real-time graphing system
+
+# Requirements
+Requires=etcd.service
+Requires=docker.service
+
+# Dependency ordering
+After=etcd.service
+After=docker.service
+Before=graphite-discovery.1.service
+
+[Service]
+# Let processes take awhile to start up (for first run Docker containers)
+TimeoutStartSec=0
+Restart=always
+RestartSec=10s
+# Change killmode from "control-group" to "none" to let Docker remove
+# work correctly.
+KillMode=none
+## Directives with "=-" are allowed to fail without consequence
+ExecStartPre=-/usr/bin/docker kill graphite
+ExecStartPre=-/usr/bin/docker rm graphite
+ExecStartPre=/usr/bin/docker pull adomenech73/graphite
+ExecStart=/usr/bin/docker run -rm -name graphite -p 8080 -p 25826 -p 2030 -p 2040 -p 7002 adomenech73/graphite
+ExecStop=/usr/bin/docker stop graphite
+
+[Install]
+WantedBy=local.target
+
+[X-Fleet]
+# Don't schedule on the same machine as other instances
+X-Conflicts=graphite.*.service

@@ -1,0 +1,10 @@
+[Unit]
+Description=Announce wordpress
+BindsTo=wordpress.1.service
+
+[Service]
+ExecStart=/bin/sh -c "while true; do etcdctl set /services/wordpress/wordpress '{ \"host\": \"%H\", \"port\": 80, \"version\": \"52c7248a14\" }' --ttl 60;sleep 45;done"
+ExecStop=/usr/bin/etcdctl rm /services/wordpress/wordpress
+
+[X-Fleet]
+X-ConditionMachineOf=wordpress.1.service

@@ -1,0 +1,34 @@
+[Unit]
+Description=ElasticSearch is a powerful search and analytics engine
+
+# Requirements
+Requires=etcd.service
+Requires=docker.service
+Requires=elasticsearch-discovery.1.service
+
+# Dependency ordering
+After=etcd.service
+After=docker.service
+Before=elasticsearch-discovery.1.service
+
+[Service]
+# Let processes take awhile to start up (for first run Docker containers)
+TimeoutStartSec=0
+Restart=always
+RestartSec=10s
+# Change killmode from "control-group" to "none" to let Docker remove
+# work correctly.
+KillMode=none
+## Directives with "=-" are allowed to fail without consequence
+ExecStartPre=-/usr/bin/docker kill elasticsearch
+ExecStartPre=-/usr/bin/docker rm elasticsearch
+ExecStartPre=/usr/bin/docker pull adomenech73/elasticsearch
+ExecStart=/usr/bin/docker run -rm -name elasticsearch -p 9200 -p 9300 adomenech73/elasticsearch
+ExecStop=/usr/bin/docker stop diamond
+
+[Install]
+WantedBy=local.target
+
+[X-Fleet]
+# Don't schedule on the same machine as other instances
+X-Conflicts=diamond.*.service

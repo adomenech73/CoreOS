@@ -1,0 +1,58 @@
+mysql:
+  image: adomenech73/mysql
+  ports:
+    - 3306
+  environment:
+    MYSQL_DATABASE: wordpress
+    MYSQL_PASS: q$1N76&WAri9
+#
+#
+wordpress:
+  image: adomenech73/wordpress
+  ports:
+    - 80
+  links:
+    - mysql
+  environment:
+    DB_PASSWORD: q$1N76&WAri9
+#
+#
+graphite:
+  image: adomenech73/graphite
+  ports:
+    - 8080
+    - 25826
+    - 2030
+    - 2040
+    - 7002
+#volumes:
+#environment:
+#
+#
+diamond:
+  image: adomenech73/diamond
+  links:
+    - mysql
+    - wordpress
+    - graphite
+  environment:
+    DB_PASSWORD: q$1N76&WAri9
+#
+#
+elasticsearch:
+  image: adomenech73/elasticsearch
+  ports:
+    - 9200
+    - 9300
+#volumes:
+#environment:
+#
+#
+grafana:
+  image: adomenech73/grafana
+  ports:
+    - 8081
+  links:
+    - elasticsearch
+#volumes:
+#environment:

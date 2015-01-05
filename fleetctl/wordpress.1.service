@@ -1,0 +1,37 @@
+[Unit]
+Description=WordPress is a blogging tool and a content management system.
+
+# Requirements
+Requires=etcd.service
+Requires=docker.service
+Requires=mysql.1.service
+
+# Dependency ordering
+After=etcd.service
+After=docker.service
+After=mysql.1.service
+Before=wordpress-discovery.1.service
+
+[Service]
+# Let processes take awhile to start up (for first run Docker containers)
+TimeoutStartSec=0
+Restart=always
+RestartSec=10s
+# Change killmode from "control-group" to "none" to let Docker remove
+# work correctly.
+KillMode=none
+
+ExecStartPre=-/usr/bin/docker kill wordpress
+ExecStartPre=-/usr/bin/docker rm wordpress
+ExecStartPre=/usr/bin/docker pull adomenech73/wordpress
+
+ExecStart=/usr/bin/docker run --rm --name wordpress  --link mysql:mysql -e "DB_PASSWORD=q$1N76&WAri9" -p 80:80 adomenech73/wordpress
+
+ExecStop=/usr/bin/docker stop wordpress
+
+[Install]
+WantedBy=local.target
+
+[X-Fleet]
+# Don't schedule on the same machine as other instances
+X-Conflicts=wordpress.*.service
