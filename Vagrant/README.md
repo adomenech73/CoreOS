@@ -26,7 +26,7 @@ Follow one of the following two options:
 
 Firstefall get a new id for the CoreOS cluster we want to start in:
 
-[New CoreOS key]: 'https://discovery.etcd.io/new'
+[New CoreOS key]: https://discovery.etcd.io/new
 
 Modify the file user-data to insert the new key at the header.
 
