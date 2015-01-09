@@ -63,8 +63,9 @@ RUN apt-get update && apt-get -y install \
   # Wordpress Initialization and Startup Script
   #RUN sed -i -e "s/\/\* That's all, stop editing\! Happy blogging\. \*\//define('WP_ALLOW_MULTISITE', true);/" /usr/share/nginx/www/wp-config.php
   RUN chown -R www-data:www-data /usr/share/nginx/www
-  ADD ./start.sh /start.sh
-  RUN chmod 755 /start.sh
+  ADD ./configure.sh /configure.sh
+  RUN chmod 755 /configure.sh
+  RUN /configure.sh
 
   CMD exec supervisord -n
   # private expose

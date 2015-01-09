@@ -4,7 +4,7 @@ if [ ! -f /usr/share/nginx/www/wp-config.php ]; then
   # Here we generate random passwords (thank you pwgen!). The first two are for mysql users, the last batch for random keys in wp-config.php
   WORDPRESS_DB="wordpress"
   #MYSQL_PASSWORD=`pwgen -c -n -1 12`
-  MYSQL_PASSWORD=`q$1N76&WAri9`
+  MYSQL_PASSWORD="changeme"
   WORDPRESS_PASSWORD=`pwgen -c -n -1 12`
   #WORDPRESS_PASSWORD=``
   #This is so the passwords show up in logs.
@@ -14,8 +14,9 @@ if [ ! -f /usr/share/nginx/www/wp-config.php ]; then
   echo $WORDPRESS_PASSWORD > /wordpress-db-pw.txt
 
   sed -e "s/database_name_here/$WORDPRESS_DB/
-  s/username_here/$WORDPRESS_DB/
-  s/password_here/$WORDPRESS_PASSWORD/
+  s/username_here/root/
+  s/password_here/changeme/
+  s/'localhost'/getenv('DBHOST')/
   /'AUTH_KEY'/s/put your unique phrase here/`pwgen -c -n -1 65`/
   /'SECURE_AUTH_KEY'/s/put your unique phrase here/`pwgen -c -n -1 65`/
   /'LOGGED_IN_KEY'/s/put your unique phrase here/`pwgen -c -n -1 65`/
@@ -43,11 +44,10 @@ if [ ! -f /usr/share/nginx/www/wp-config.php ]; then
       }
     }
   }
-  ENDL
+ENDL
 
-  chown www-data:www-data /usr/share/nginx/www/wp-config.php
+echo "define('WP_ALLOW_MULTISITE', true);" >> /usr/share/nginx/www/wp-config.php
+echo "DBHOST=\$COREOS_PRIVATE_IPV4" >> /etc/environment
+chown www-data:www-data /usr/share/nginx/www/wp-config.php
 
 fi
-
-# start all the services
-#/usr/local/bin/supervisord -n
