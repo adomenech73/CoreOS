@@ -3,7 +3,10 @@
 ---
 coreos:
   etcd:
-    discovery: https://discovery.etcd.io/10fae74bd3f3f92d56356fa7c98f9390
+    # get new id for the cluster (of one in that case) geting
+    # https://discovery.etcd.io/new
+    # for example
+    #discovery: https://discovery.etcd.io/10fae74bd3f3f92d56356fa7c98f9390
     addr: $public_ipv4:4001
     peer-addr: $public_ipv4:7001
   fleet:
