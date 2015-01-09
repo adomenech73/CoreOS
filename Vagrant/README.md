@@ -24,13 +24,19 @@ Follow one of the following two options:
 
 **VirtualBox Provider**
 
+Firstefall get a new id for the CoreOS cluster we want to start in:
+
+[New CoreOS key]: 'https://discovery.etcd.io/new'
+
+Modify the file user-data to insert the new key at the header.
+
 The VirtualBox provider is the default Vagrant provider. Use this if you are unsure.
 
 ```
 vagrant up
 ```
 
-Then add the keys of the Vagrant VM
+Then add the SSH keys of the Vagrant VM
 
 ```
 vagrant ssh-config --host node-01 >> ~/.ssh/config
@@ -50,30 +56,10 @@ ssh-keygen -f "/home/albert/.ssh/known_hosts" -R [127.0.0.1]:2222
 ssh-keygen -f "/home/albert/.fleetctl/known_hosts" -R [127.0.0.1]:2222
 ```
 
-**VMware Provider**
-
-The VMware provider is a commercial addon from Hashicorp that offers better stability and speed.
-If you use this provider follow these instructions.
-
-```
-vagrant up --provider vmware_fusion
-vagrant ssh
-```
-
-``vagrant up`` triggers vagrant to download the CoreOS image (if necessary) and (re)launch the instance
-
-``vagrant ssh`` connects you to the virtual machine.
-Configuration is stored in the directory so you can always return to this machine by executing vagrant ssh from the directory where the Vagrantfile was located.
-
-3) Get started [using CoreOS][using-coreos]
-
-[virtualbox]: https://www.virtualbox.org/
-[vagrant]: https://www.vagrantup.com/downloads.html
-[using-coreos]: http://coreos.com/docs/using-coreos/
-
 #### Shared Folder Setup
 
 There is optional shared folder setup.
+Bya default is shared the fleetctl folder of the project.
 You can try it out by adding a section to your Vagrantfile like this.
 
 ```
@@ -83,20 +69,11 @@ config.vm.synced_folder ".", "/home/core/share", id: "core", :nfs => true,  :mou
 
 After a 'vagrant reload' you will be prompted for your local machine password.
 
-#### Provisioning with user-data
-
-The Vagrantfile will provision your CoreOS VM(s) with [coreos-cloudinit][coreos-cloudinit] if a `user-data` file is found in the project directory.
-coreos-cloudinit simplifies the provisioning process through the use of a script or cloud-config document.
-
-To get started, copy `user-data.sample` to `user-data` and make any necessary modifications.
-Check out the [coreos-cloudinit documentation][coreos-cloudinit] to learn about the available features.
-
-[coreos-cloudinit]: https://github.com/coreos/coreos-cloudinit
-
 #### Configuration
 
 The Vagrantfile will parse a `config.rb` file containing a set of options used to configure your CoreOS cluster.
-See `config.rb.sample` for more information.
+
+By default it will try to launch a 3 cores node of a single machine cluster, you can change this behaviour by modifiying the Vagrant file and config.rb file.
 
 ## Cluster Setup
 
@@ -110,7 +87,6 @@ If you want to start from the most up to date version you will need to make sure
 Simply remove the old box file and vagrant will download the latest one the next time you `vagrant up`.
 
 ```
-vagrant box remove coreos --provider vmware_fusion
 vagrant box remove coreos --provider virtualbox
 ```
 
