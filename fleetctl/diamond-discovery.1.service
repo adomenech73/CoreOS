@@ -1,10 +1,10 @@
 [Unit]
-Description=Announce diamond_1
+Description=Announce diamond
 BindsTo=diamond.1.service
 
 [Service]
-ExecStart=/bin/sh -c "while true; do etcdctl set /services/diamond/diamond_1 '{ \"host\": \"%H\", \"version\": \"52c7248a14\" }' --ttl 60;sleep 45;done"
-ExecStop=/usr/bin/etcdctl rm /services/diamond/diamond_1
+ExecStart=/bin/sh -c "while true; do etcdctl set /services/diamond/diamond '{ \"host\": \"%H\", \"version\": \"52c7248a14\" }' --ttl 60;sleep 45;done"
+ExecStop=/usr/bin/etcdctl rm /services/diamond/diamond
 
 [X-Fleet]
 X-ConditionMachineOf=diamond.1.service

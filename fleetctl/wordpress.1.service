@@ -25,7 +25,7 @@ ExecStartPre=-/usr/bin/docker kill wordpress
 ExecStartPre=-/usr/bin/docker rm wordpress
 ExecStartPre=/usr/bin/docker pull adomenech73/wordpress
 
-ExecStart=/usr/bin/docker run --rm --name wordpress  --link mysql:mysql -e "DB_PASSWORD=q$1N76&WAri9" -p 80:80 adomenech73/wordpress
+ExecStart=/usr/bin/docker run --rm --name wordpress  --link mysql:mysql -e "DB_PASSWORD=changeme" -p 80:80 adomenech73/wordpress
 
 ExecStop=/usr/bin/docker stop wordpress
 

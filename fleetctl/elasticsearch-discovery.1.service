@@ -1,10 +1,10 @@
 [Unit]
-Description=Announce elasticsearch_1
+Description=Announce elasticsearch
 BindsTo=elasticsearch.1.service
 
 [Service]
-ExecStart=/bin/sh -c "while true; do etcdctl set /services/elasticsearch/elasticsearch_1 '{ \"host\": \"%H\", \"port\": 9200, \"version\": \"52c7248a14\" }' --ttl 60;sleep 45;done"
-ExecStop=/usr/bin/etcdctl rm /services/elasticsearch/elasticsearch_1
+ExecStart=/bin/sh -c "while true; do etcdctl set /services/elasticsearch/elasticsearch '{ \"host\": \"%H\", \"port\": 9200, \"version\": \"52c7248a14\" }' --ttl 60;sleep 45;done"
+ExecStop=/usr/bin/etcdctl rm /services/elasticsearch/elasticsearch
 
 [X-Fleet]
 X-ConditionMachineOf=elasticsearch.1.service

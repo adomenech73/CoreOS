@@ -22,7 +22,7 @@ KillMode=none
 ExecStartPre=-/usr/bin/docker kill mysql
 ExecStartPre=-/usr/bin/docker rm mysql
 ExecStartPre=/usr/bin/docker pull adomenech73/mysql
-ExecStart=/usr/bin/docker run --rm --name mysql -e "MYSQL_DATABASE=wordpress" -e "MYSQL_PASS=q$1N76&WAri9" -p 3306:3306 adomenech73/mysql
+ExecStart=/usr/bin/docker run --rm --name mysql -e "MYSQL_DATABASE=wordpress" -e "MYSQL_PASS=changeme" -p 3306:3306 adomenech73/mysql
 ExecStop=/usr/bin/docker stop mysql
 
 [Install]

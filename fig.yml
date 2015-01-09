@@ -4,7 +4,7 @@ mysql:
     - 3306
   environment:
     MYSQL_DATABASE: wordpress
-    MYSQL_PASS: q$1N76&WAri9
+    MYSQL_PASS: changeme
 #
 #
 wordpress:
@@ -14,7 +14,7 @@ wordpress:
   links:
     - mysql
   environment:
-    DB_PASSWORD: q$1N76&WAri9
+    DB_PASSWORD: changeme
 #
 #
 graphite:
@@ -36,7 +36,7 @@ diamond:
     - wordpress
     - graphite
   environment:
-    DB_PASSWORD: q$1N76&WAri9
+    DB_PASSWORD: changeme
 #
 #
 elasticsearch:

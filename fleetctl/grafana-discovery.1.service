@@ -1,10 +1,10 @@
 [Unit]
-Description=Announce grafana_1
+Description=Announce grafana
 BindsTo=grafana.1.service
 
 [Service]
-ExecStart=/bin/sh -c "while true; do etcdctl set /services/grafana/grafana_1 '{ \"host\": \"%H\", \"port\": 8081, \"version\": \"52c7248a14\" }' --ttl 60;sleep 45;done"
-ExecStop=/usr/bin/etcdctl rm /services/grafana/grafana_1
+ExecStart=/bin/sh -c "while true; do etcdctl set /services/grafana/grafana '{ \"host\": \"%H\", \"port\": 8081, \"version\": \"52c7248a14\" }' --ttl 60;sleep 45;done"
+ExecStop=/usr/bin/etcdctl rm /services/grafana/grafana
 
 [X-Fleet]
 X-ConditionMachineOf=grafana.1.service

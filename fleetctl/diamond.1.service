@@ -30,7 +30,7 @@ KillMode=none
 ExecStartPre=-/usr/bin/docker kill diamond
 ExecStartPre=-/usr/bin/docker rm diamond
 ExecStartPre=/usr/bin/docker pull adomenech73/diamond
-ExecStart=/usr/bin/docker run -rm -name diamond  --link mysql:mysql --link wordpress:wordpress --link graphite:graphite -e "DB_PASSWORD=q$1N76&WAri9"  adomenech73/diamond
+ExecStart=/usr/bin/docker run -rm -name diamond  --link mysql:mysql --link wordpress:wordpress --link graphite:graphite -e "DB_PASSWORD=changeme"  adomenech73/diamond
 ExecStop=/usr/bin/docker stop diamond
 
 [Install]

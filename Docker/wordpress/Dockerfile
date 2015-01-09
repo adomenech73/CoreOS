@@ -6,8 +6,7 @@ RUN dpkg-divert --local --rename --add /sbin/initctl
 RUN ln -sf /bin/true /sbin/initctl
 # Let the conatiner know that there is no tty
 RUN cat /etc/apt/sources.list
-ENV
-ENV
+
 ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get update && apt-get -y install \
@@ -61,8 +60,9 @@ RUN apt-get update && apt-get -y install \
   RUN mv /usr/share/nginx/html/5* /usr/share/nginx/wordpress
   RUN rm -rf /usr/share/nginx/www
   RUN mv /usr/share/nginx/wordpress /usr/share/nginx/www
-  RUN chown -R www-data:www-data /usr/share/nginx/www
   # Wordpress Initialization and Startup Script
+  #RUN sed -i -e "s/\/\* That's all, stop editing\! Happy blogging\. \*\//define('WP_ALLOW_MULTISITE', true);/" /usr/share/nginx/www/wp-config.php
+  RUN chown -R www-data:www-data /usr/share/nginx/www
   ADD ./start.sh /start.sh
   RUN chmod 755 /start.sh
 

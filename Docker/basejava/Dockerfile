@@ -13,5 +13,5 @@ RUN add-apt-repository -y ppa:webupd8team/java && \
   DEBIAN_FRONTEND=noninteractive apt-get install -y \
   oracle-java7-installer && \
   rm -rf /var/lib/apt/lists/*
-  
+
   CMD ["/usr/bin/supervisord"]
