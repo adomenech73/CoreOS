@@ -24,9 +24,9 @@ Follow one of the following two options:
 
 **VirtualBox Provider**
 
-Firstefall get a new id for the CoreOS cluster we want to start in:
+Firstefall get a new id for the CoreOS cluster we want to start in [Get a new CoreOS key][New key] .
 
-[New CoreOS key]: https://discovery.etcd.io/new
+[New key]: https://discovery.etcd.io/new
 
 Modify the file user-data to insert the new key at the header.
 
