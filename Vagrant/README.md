@@ -13,8 +13,8 @@ After setup is complete you will have a single CoreOS virtual machine running on
 2) Clone this project and get it running!
 
 ```
-git clone https://github.com/coreos/coreos-vagrant/
-cd coreos-vagrant
+git clone https://github.com/adomenech73/CoreOS.git
+cd CoreOS/Vagrant
 ```
 
 3) Startup and SSH
@@ -24,11 +24,23 @@ Follow one of the following two options:
 
 **VirtualBox Provider**
 
+First add the keys of the Vagrant VM
+
+```
+vagrant ssh-config --host node-01 >> ~/.ssh/config
+vagrant ssh-config --host node-01 | sed -n "s/IdentityFile//gp" | xargs ssh-add
+```
 The VirtualBox provider is the default Vagrant provider. Use this if you are unsure.
 
 ```
 vagrant up
-vagrant ssh
+vagrant ssh core-01 -- -A
+```
+Howto delete previous keys from old VM
+
+```
+ssh-keygen -f "/home/albert/.ssh/known_hosts" -R [127.0.0.1]:2222
+ssh-keygen -f "/home/albert/.fleetctl/known_hosts" -R [127.0.0.1]:2222
 ```
 
 **VMware Provider**
