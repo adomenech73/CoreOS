@@ -24,19 +24,26 @@ Follow one of the following two options:
 
 **VirtualBox Provider**
 
-First add the keys of the Vagrant VM
+The VirtualBox provider is the default Vagrant provider. Use this if you are unsure.
+
+```
+vagrant up
+```
+
+Then add the keys of the Vagrant VM
 
 ```
 vagrant ssh-config --host node-01 >> ~/.ssh/config
 vagrant ssh-config --host node-01 | sed -n "s/IdentityFile//gp" | xargs ssh-add
 ```
-The VirtualBox provider is the default Vagrant provider. Use this if you are unsure.
+
+Finally connect to the VM
 
 ```
-vagrant up
 vagrant ssh core-01 -- -A
 ```
-Howto delete previous keys from old VM
+
+(optional) Howto delete previous keys from old VM
 
 ```
 ssh-keygen -f "/home/albert/.ssh/known_hosts" -R [127.0.0.1]:2222
