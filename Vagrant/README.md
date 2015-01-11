@@ -58,9 +58,8 @@ ssh-keygen -f "/home/albert/.fleetctl/known_hosts" -R [127.0.0.1]:2222
 
 #### Shared Folder Setup
 
-There is optional shared folder setup.
-Bya default is shared the fleetctl folder of the project.
-You can try it out by adding a section to your Vagrantfile like this.
+There is optional shared folder setup (by default the fleetctl folder is shared).
+You can try it out by adding a new section to your Vagrantfile like this.
 
 ```
 config.vm.network "private_network", ip: "172.17.8.150"

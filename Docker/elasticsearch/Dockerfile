@@ -1,10 +1,6 @@
 FROM adomenech73/basejava
 MAINTAINER Albert Domenech <adomenech@gmail.com>
 
-
-# Let the conatiner know that there is no tty
-ENV DEBIAN_FRONTEND noninteractive
-
 ENV ES_PKG_NAME elasticsearch-1.4.2
 
 RUN cd / && \
@@ -12,8 +8,8 @@ RUN cd / && \
   dpkg -i $ES_PKG_NAME.deb && \
   rm $ES_PKG_NAME.deb && \
   chown -R elasticsearch:elasticsearch /var/lib/elasticsearch && \
-  mkdir -p /tmp/elasticsearch && chown \
-  elasticsearch:elasticsearch /tmp/elasticsearch
+  mkdir -p /tmp/elasticsearch && \
+  chown elasticsearch:elasticsearch /tmp/elasticsearch
 
 # Configure elasticsearch
 ADD ./elasticsearch/elasticsearch-start /usr/local/bin/elasticsearch-start

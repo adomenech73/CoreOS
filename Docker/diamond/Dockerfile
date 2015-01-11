@@ -5,8 +5,6 @@
 FROM      adomenech73/base
 MAINTAINER Albert Domenech <adomenech@gmail.com>
 
-ENV DEBIAN_FRONTEND noninteractive
-
 RUN apt-get update && apt-get install -y \
   pbuilder \
   python-mock \
@@ -15,13 +13,14 @@ RUN apt-get update && apt-get install -y \
   python-psycopg2 \
   git \
   cdbs && \
-  rm -rf /var/lib/apt/lists/*
-
-RUN git clone https://github.com/BrightcoveOS/Diamond/
+  rm -rf /var/lib/apt/lists/* && \
+  git clone https://github.com/BrightcoveOS/Diamond/
 
 WORKDIR /Diamond
-RUN make builddeb
-RUN sudo dpkg -i build/diamond_*_all.deb
+
+RUN make builddeb && \
+    sudo dpkg -i build/diamond_*_all.deb
+
 ADD diamond /etc/diamond/
 ADD entrypoint.sh /
 

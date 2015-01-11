@@ -1,10 +1,10 @@
 #!/bin/bash
 
-path=$(pwd)
-for dir in `ls ./`;
+for dir in `ls -d */`;
 do
-  cd $path/$dir
-  docker build -t adomenech73/$dir .
+  cd ./$dir
+  docker build -t adomenech73/${dir%%/} .
+  cd ../
 done
 
 exit 0

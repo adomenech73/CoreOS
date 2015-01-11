@@ -1,0 +1,67 @@
+└─511136ea3c5a Virtual Size: 0 B
+  └─3b363fd9d7da Virtual Size: 188.1 MB
+    └─607c5d1cca71 Virtual Size: 188.3 MB
+      └─f62feddc05dc Virtual Size: 188.3 MB
+        └─8eaa4ff06b53 Virtual Size: 188.3 MB Tags: ubuntu:latest
+          └─f0c853234f4b Virtual Size: 188.3 MB
+            └─b0e53ce1a053 Virtual Size: 189.9 MB
+              └─fb0f7e5e9078 Virtual Size: 189.9 MB
+                └─13aa36e147b2 Virtual Size: 189.9 MB
+                  └─fd581415592e Virtual Size: 364.9 MB
+                    └─153545d9f07a Virtual Size: 364.9 MB
+                      └─2f497cf8df0b Virtual Size: 364.9 MB Tags: adomenech73/base:latest
+                        └─6036ceae496f Virtual Size: 364.9 MB
+                          ├─72fdd98a68a9 Virtual Size: 521.7 MB
+                          │ └─88994ba9da28 Virtual Size: 521.7 MB
+                          │   └─c413a371eb24 Virtual Size: 521.7 MB
+                          │     └─c4a89be5ce17 Virtual Size: 521.7 MB
+                          │       └─dee734ad4274 Virtual Size: 527.9 MB
+                          │         └─53fc5d477ccb Virtual Size: 546.2 MB
+                          │           └─86b1bb9decc3 Virtual Size: 546.2 MB
+                          │             └─c76c449a1270 Virtual Size: 546.2 MB Tags: adomenech73/wordpress:latest
+                          ├─6e5af0024c05 Virtual Size: 495.2 MB
+                          │ └─f573db344758 Virtual Size: 495.2 MB
+                          │   └─a54a37f2374c Virtual Size: 495.2 MB
+                          │     └─66fe95838fbf Virtual Size: 495.2 MB
+                          │       └─fc1e36025ec1 Virtual Size: 495.2 MB
+                          │         └─ef8671836f31 Virtual Size: 495.2 MB
+                          │           └─843268dd955b Virtual Size: 495.2 MB
+                          │             └─3b3a6df2b2cf Virtual Size: 495.2 MB Tags: adomenech73/mysql:latest
+                          ├─1996f3874637 Virtual Size: 505.8 MB
+                          │ └─33505af72c84 Virtual Size: 505.8 MB
+                          │   └─0c6a8544969c Virtual Size: 505.8 MB
+                          │     └─c63e1ee6a422 Virtual Size: 505.8 MB
+                          │       └─798f4e4ac9c6 Virtual Size: 505.8 MB
+                          │         └─68b61804532d Virtual Size: 505.8 MB
+                          │           └─0dcff758f396 Virtual Size: 505.8 MB
+                          │             └─532c08711e67 Virtual Size: 505.8 MB
+                          │               └─eced0ed2605a Virtual Size: 505.9 MB
+                          │                 └─3e97988948a0 Virtual Size: 505.9 MB
+                          │                   └─b26ce7658c08 Virtual Size: 505.9 MB Tags: adomenech73/graphite:latest
+                          ├─0a89270244cd Virtual Size: 364.9 MB
+                          │ └─a56d09a900b8 Virtual Size: 385.4 MB
+                          │   └─ca926408434e Virtual Size: 385.4 MB
+                          │     └─ed0112c2b95a Virtual Size: 385.4 MB
+                          │       └─ef4154a87d43 Virtual Size: 385.4 MB
+                          │         └─a3316c8f1017 Virtual Size: 385.4 MB
+                          │           └─235957c02423 Virtual Size: 385.4 MB Tags: adomenech73/grafana:latest
+                          ├─4abd965ab4b7 Virtual Size: 455.4 MB
+                          │ └─10ec63efd54b Virtual Size: 455.4 MB
+                          │   └─4d44d6edda9e Virtual Size: 461.6 MB
+                          │     └─038466a441e1 Virtual Size: 461.6 MB
+                          │       └─923f1a62d5ca Virtual Size: 461.6 MB
+                          │         └─56cfbac8e1e6 Virtual Size: 461.6 MB
+                          │           └─6546a5bcd8de Virtual Size: 461.6 MB Tags: adomenech73/diamond:latest
+                          └─f0fba4d00d47 Virtual Size: 813.5 MB
+                            └─73efaaede12e Virtual Size: 813.5 MB Tags: adomenech73/basejava:latest
+                              └─7d8cddd5dac0 Virtual Size: 813.5 MB
+                                └─6be6c65f600a Virtual Size: 813.5 MB
+                                  └─e766ce26e2d3 Virtual Size: 845.1 MB
+                                    └─bab88c64c989 Virtual Size: 845.1 MB
+                                      └─0c8348dea5b4 Virtual Size: 845.1 MB
+                                        └─6f969e22b5f6 Virtual Size: 845.1 MB
+                                          └─7d3f01ea1413 Virtual Size: 845.1 MB
+                                            └─67a8574f28ad Virtual Size: 845.1 MB
+                                              └─78ee8328c1e5 Virtual Size: 845.1 MB
+                                                └─1feb5f3e1d45 Virtual Size: 845.1 MB
+                                                  └─69555f4bc6b1 Virtual Size: 845.1 MB Tags: adomenech73/elasticsearch:latest

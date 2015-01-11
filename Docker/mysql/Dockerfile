@@ -1,11 +1,6 @@
 FROM adomenech73/base
 MAINTAINER Albert Domenech <adomenech@gmail.com>
 
-# Keep upstart from complaining
-RUN dpkg-divert --local --rename --add /sbin/initctl
-RUN ln -sf /bin/true /sbin/initctl
-# Let the conatiner know that there is no tty
-ENV DEBIAN_FRONTEND noninteractive
 # Install MySQL.
 RUN apt-get update && \
   apt-get install -y \

@@ -1,14 +1,6 @@
 FROM adomenech73/base
 MAINTAINER Albert Domenech <adomenech@gmail.com>
 
-# Keep upstart from complaining
-RUN dpkg-divert --local --rename --add /sbin/initctl
-RUN ln -sf /bin/true /sbin/initctl
-# Let the conatiner know that there is no tty
-RUN cat /etc/apt/sources.list
-
-ENV DEBIAN_FRONTEND noninteractive
-
 RUN apt-get update && apt-get -y install \
   nginx \
   php5-fpm \
@@ -34,20 +26,17 @@ RUN apt-get update && apt-get -y install \
   php5-tidy \
   php5-xmlrpc \
   php5-xsl && \
-  rm -rf /var/lib/apt/lists/*
-
-  # nginx config
-  RUN sed -i -e"s/keepalive_timeout\s*65/keepalive_timeout 2/" /etc/nginx/nginx.conf
-  RUN sed -i -e"s/keepalive_timeout 2/keepalive_timeout 2;\n\tclient_max_body_size 100m/" /etc/nginx/nginx.conf
-  RUN echo "daemon off;" >> /etc/nginx/nginx.conf
+  rm -rf /var/lib/apt/lists/* && \
+  sed -i -e"s/keepalive_timeout\s*65/keepalive_timeout 2/" /etc/nginx/nginx.conf && \
+  sed -i -e"s/keepalive_timeout 2/keepalive_timeout 2;\n\tclient_max_body_size 100m/" /etc/nginx/nginx.conf && \
+  echo "daemon off;" >> /etc/nginx/nginx.conf && \
   # php-fpm config
-  RUN sed -i -e "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/g" /etc/php5/fpm/php.ini
-  RUN sed -i -e "s/upload_max_filesize\s*=\s*2M/upload_max_filesize = 100M/g" /etc/php5/fpm/php.ini
-  RUN sed -i -e "s/post_max_size\s*=\s*8M/post_max_size = 100M/g" /etc/php5/fpm/php.ini
-  RUN sed -i -e "s/;daemonize\s*=\s*yes/daemonize = no/g" /etc/php5/fpm/php-fpm.conf
-  RUN sed -i -e "s/;catch_workers_output\s*=\s*yes/catch_workers_output = yes/g" /etc/php5/fpm/pool.d/www.conf
-  RUN find /etc/php5/cli/conf.d/ -name "*.ini" -exec sed -i -re 's/^(\s*)#(.*)/\1;\2/g' {} \;
-
+  sed -i -e "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/g" /etc/php5/fpm/php.ini && \
+  sed -i -e "s/upload_max_filesize\s*=\s*2M/upload_max_filesize = 100M/g" /etc/php5/fpm/php.ini && \
+  sed -i -e "s/post_max_size\s*=\s*8M/post_max_size = 100M/g" /etc/php5/fpm/php.ini && \
+  sed -i -e "s/;daemonize\s*=\s*yes/daemonize = no/g" /etc/php5/fpm/php-fpm.conf && \
+  sed -i -e "s/;catch_workers_output\s*=\s*yes/catch_workers_output = yes/g" /etc/php5/fpm/pool.d/www.conf && \
+  find /etc/php5/cli/conf.d/ -name "*.ini" -exec sed -i -re 's/^(\s*)#(.*)/\1;\2/g' {} \;
 
   # nginx site conf
   ADD ./nginx/sites-available /etc/nginx/sites-available/default
@@ -56,16 +45,20 @@ RUN apt-get update && apt-get -y install \
   ADD ./supervisor/php5.conf /etc/supervisor/conf.d/php5.conf
   # Install Wordpress
   ADD http://wordpress.org/latest.tar.gz /usr/share/nginx/latest.tar.gz
-  RUN cd /usr/share/nginx/ && tar xvf latest.tar.gz && rm latest.tar.gz
-  RUN mv /usr/share/nginx/html/5* /usr/share/nginx/wordpress
-  RUN rm -rf /usr/share/nginx/www
-  RUN mv /usr/share/nginx/wordpress /usr/share/nginx/www
-  # Wordpress Initialization and Startup Script
-  #RUN sed -i -e "s/\/\* That's all, stop editing\! Happy blogging\. \*\//define('WP_ALLOW_MULTISITE', true);/" /usr/share/nginx/www/wp-config.php
-  RUN chown -R www-data:www-data /usr/share/nginx/www
-  ADD ./configure.sh /configure.sh
-  RUN chmod 755 /configure.sh
-  RUN /configure.sh
+
+  RUN cd /usr/share/nginx/ && tar xvf latest.tar.gz && rm latest.tar.gz && \
+    mv /usr/share/nginx/html/5* /usr/share/nginx/wordpress && \
+    rm -rf /usr/share/nginx/www && \
+    mv /usr/share/nginx/wordpress /usr/share/nginx/www && \
+    # Wordpress Initialization and Startup Script
+    #RUN sed -i -e "s/\/\* That's all, stop editing\! Happy blogging\. \*\//define('WP_ALLOW_MULTISITE', true);/" /usr/share/nginx/www/wp-config.php
+    chown -R www-data:www-data /usr/share/nginx/www
+
+
+  # Wordpress configuraion
+  #ADD ./configure.sh /configure.sh
+  #RUN chmod 755 /configure.sh
+  #RUN /configure.sh
 
   CMD exec supervisord -n
   # private expose
